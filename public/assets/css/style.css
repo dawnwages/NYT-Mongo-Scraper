@@ -1,0 +1,14 @@
+.jumbotron {
+    background-image: url("https://static.lenovo.com/na/homepage/heros/main-banner/lenovo-ideapad-720s-banner.jpg");
+    height: 480px;
+    padding-left: 100px !important;
+
+}
+
+input[type=text] {
+    width: 500px !important;
+}
+
+.url {
+    padding-left: 100px;
+}
