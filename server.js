@@ -3,6 +3,8 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
+//var newPromo = require("./public/assets/js/script");
+
 // Initialize Express
 var app = express();
 
@@ -15,8 +17,11 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
+
+
 var PORT = 5000;
 
+var url = "";
 
 
 // Configure middleware
@@ -33,14 +38,24 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/scraperDemo");
 
 
+app.post("/api/urlreq", function(req, res) {
+  db.Promo.push(req.body);
+  res.json(true);
+});
+
+app.get("/api/urlreq", function(req, res) {
+  res.json(db.Promo);
+});
 
 // Routes
 // When refactor, split out routes (HTML AND API) into a folder like you did in friend finder 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
-
-  axios.get("https://echojs.com/").then(function(response) {
+  
+  //res.send(db.Promo.pop().url);
+  
+  axios.get("http://www3.lenovo.com"+db.Promo.pop().url).then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
@@ -57,6 +72,8 @@ app.get("/scrape", function(req, res) {
         .children("a")
         .attr("href");
 
+      console.log(result);
+
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
@@ -71,6 +88,7 @@ app.get("/scrape", function(req, res) {
 
     // If we were able to successfully scrape and save an Article, send a message to the client
     res.send("Scrape Complete");
+
   });
 });
 

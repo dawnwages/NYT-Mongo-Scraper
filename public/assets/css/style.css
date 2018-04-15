@@ -5,10 +5,13 @@
 
 }
 
-input[type=text] {
-    width: 500px !important;
-}
 
 .url {
-    padding-left: 100px;
+    width: 560px !important;
+}
+
+.select-wrapper input.select-dropdown {
+
+    padding: 10px !important;
+
 }
