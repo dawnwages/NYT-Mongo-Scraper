@@ -1,14 +1,18 @@
 
 
 // Grab the articles as a json
-$.getJSON("/articles", function(data) {
+function renderArticles() {
+  $.getJSON("/articles", function(data) {
   // For each one
+  $("#articles").empty();
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
     $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
   }
 });
+}
 
+renderArticles();
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {
@@ -72,3 +76,66 @@ $(document).on("click", "#savenote", function() {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+
+
+
+
+// =======================================================
+//SCRIPT.JS
+//========================================================
+$(document).ready(function() {
+  $('select').material_select();
+});
+      
+
+
+
+$(document).ready(function() {
+  $(".dropdown-trigger").dropdown();
+});
+
+$(document).ready(function() {
+  $(".dropdown-toggle").dropdown();
+});
+
+function Newscrape(url, date){
+  this.url = url;
+  this.date = date;
+}
+
+//var newScrape = {
+//    url: "/us/en/landingpage/promotions/weekly-sale/lenovo-laptops",
+//    date: Date.now(),
+//};
+
+$("#scrape-url").on("click", function(event) {
+  event.preventDefault();
+  console.log("button pressed");
+  // Here we grab the form elements
+  var newScrape = new Newscrape ($("#basic-url").val().trim(), Date.now());
+  console.log(newScrape.url);
+  console.log(newScrape.date);
+  //return newScrape;
+
+  $.post("/api/urlreq", newScrape, function() { 
+       
+      
+  }).then(
+    window.location.href = "/scrape"
+  );
+  //scrapeURL();
+  
+ //goHome();
+  // Grab the articles as a json
+
+});
+
+var scrapeURL = function() {
+  window.location.href = "/scrape";
+  console.log("scrape complete");
+};
+
+var goHome = function(){
+  window.location.href = "/";
+  renderArticles();
+};
