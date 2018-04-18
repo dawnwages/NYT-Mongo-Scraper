@@ -17,6 +17,8 @@
     <!--Google Fonts -->    
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cabin|Inconsolata|Nunito|Nunito+Sans|Pacifico|Rubik|Slabo+27px" rel="stylesheet">
 
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 
 
 
@@ -32,21 +34,22 @@
         <a href="#" class="navbar-brand brand-logo">Web Scraper</a>
         <ul id="nav navbar-nav" class="right hide-on-med-and-down">
 
-          <li><a href="sass.html">Home</a></li>
-          <li><a href="badges.html">Saved Articles</a></li>
+          <li><a href="/">Home  </a></li>
+          <li><a href="/yourArticles">Favorite Queries</a></li>
           <li class="">  
-              <span class="" id="basic-addon3">www3.lenovo.com</span>
+              <i class="fas fa-laptop"></i>  
+            <span class="" id="basic-addon3">www3.lenovo.com</span>
               <!--<a class='dropdown-trigger btn' href='#' data-target='url-dropdown'>Pick URL to Query!</a>
               <input type="text" placeholder="landingpage/promotions/weekly-sale/lenovo-laptops" class="form-control dropdown-trigger" href="#" data-target="url-dropdown" id="basic-url" aria-describedby="basic-addon3">
               <svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>-->
-              <li class=" dropdown navbar-inverse">
+              <li class="dropdown navbar-inverse">
                   <div class="url input-field col s6 " >                  
-                  
+                      
                   <select name="pickURL" id="basic-url">
-                      <option value="" disabled selected>Choose your promo page</option>
+                      
+                      <option value="" disabled selected> click to select promo page to scrape </option> 
                       <option value="/us/en/landingpage/promotions/weekly-sale/lenovo-laptops">/us/en/landingpage/promotions/weekly-sale/lenovo-laptops</option>
                       <option value="/us/en/landingpage/promotions/lenovolegion/">/us/en/landingpage/promotions/lenovolegion/</option>
-                      <input type="submit">
                     </select>
                   </div>
                   </li>
@@ -62,25 +65,43 @@
 
     </nav>
 
-    <!-- JUMBOTRON -->
+    <!-- JUMBOTRON 
     <div class="jumbotron jumbotron-fluid">
 
-          <h1 class="display-3">Scrape what you want</h1>
-          <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
 
-      </div>
+      </div>-->
 
 
 
     <!--RESULTS -->
-    <div class="section container">
-
-
+    <div class="section">
       <div class="row">
-        <div id="articles" class="col s6"></div>
-        <div id="notes" class="col s6"></div>
+          <div id='welcome' class='row'>
+            <div class='col s12 m12'>
+            <div class='card-panel black'>
+            <span class='center white-text'>
+            <p> This is a simple mongodb express application that queries, scrapes and returns data from a premium laptop retailer.
+              </br> morgan, mongoose, axios, cheerio, momentjs
+              <hr>
+          </p>
+          </span>
+          </div>
+        </div>
+        </div>
+        </div>
+        <div class="row">
+          
+          <div class="col s4 left-box">
+            <h1 class="display-3">Recent Queries</h1>
+            <p class="lead">Promo queries of a premium OEM.</p>
+            <div id="promo" class=""></div>
+          </div>
+          <div class="col s8">
+            <div id="articles" class="col s8 middle-box"></div>
+            <div id="notes" class="col s4 right-box"></div>
+          </div>
       </div>
-          <div id="noresults" class="row">
+          <!--<div id="noresults" class="row">
               <div class="col s12 m12">
                 <div class="card-panel teal">
                   <span class="center white-text">
@@ -89,7 +110,7 @@
                   </span>
                 </div>
               </div>
-            </div>
+            </div>-->
     </div>
 
 
@@ -110,6 +131,16 @@
       </div>
     </div>
 
+
+
+    <!-- MODAL -->
+      <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+      <div class="modal-content center">
+
+      </div>
+    </div>
+
   </div>
 
          <!-- Compiled and minified JavaScript -->        
@@ -124,7 +155,9 @@
    <!-- On Scroll -->
    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>    
 
-
+  <!-- Moment.js CDN via jsdelivr -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.20.1/moment.min.js"></script>
+  
    
    <script type="text/javascript" src="app.js"></script>
    <script type="text/javascript" src="assets/js/script.js"></script>

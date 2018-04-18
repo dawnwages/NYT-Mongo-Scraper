@@ -1,3 +1,46 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css');
+
+body {
+    background-color: #D8DC6A;
+}
+
+.left-box {
+    border-right: solid;
+}
+
+.select-wrapper input.select-dropdown {
+    height: 2rem !important;
+    padding: 18px 10px 0px 10px !important;
+    padding: 18px 9px 0px 5px !important;
+}
+
+
+#notes {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 55px;
+}
+
+nav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+}
+
+#bodyinput {
+    background-color: #fff;
+}
+
+
+.right-box {
+    border-left: solid;
+}
+
+.dropdown {
+    font-style: italic;
+    color: rgb(134, 134, 134);
+}
+
 .jumbotron {
     background-image: url("https://static.lenovo.com/na/homepage/heros/main-banner/lenovo-ideapad-720s-banner.jpg");
     height: 480px;
@@ -5,13 +48,13 @@
 
 }
 
+nav ul a {
+    padding: 0px 30px 0px 0px !important;
+}
+
 
 .url {
-    width: 560px !important;
+    width: 450px !important;
+    margin-right: 30px !important;
 }
 
-.select-wrapper input.select-dropdown {
-
-    padding: 10px !important;
-
-}

@@ -38,7 +38,7 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/scraperDemo");
 
 
-app.post("/api/urlreq", function(req, res) {
+app.post("/promo", function(req, res) {
     // Create a new Article using the `result` object built from scraping
       console.log(req.body);
 
@@ -51,19 +51,10 @@ app.post("/api/urlreq", function(req, res) {
         // If an error occurred, send it to the client
         return res.json(err);
       });
-      // db.Promo.create(req.body)
-      //   .then(function(dbPromo) {
-      //     // View the added result in the console
-      //     console.log(dbPromo);
-      //     console.log("db created")
-      //   })
-      //   .catch(function(err) {
-      //     // If an error occurred, send it to the client
-      //     return res.json(err);
-      //   });
+
 });
 
-app.get("/api/urlreq", function(req, res) {
+app.get("/promo", function(req, res) {
     // Grab every document in the Articles collection
     db.Promo.find({})
     .then(function(dbPromo) {
@@ -77,56 +68,56 @@ app.get("/api/urlreq", function(req, res) {
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
 
-  db.Promo.find({})
-.then(function(dbPromo){
- let r = dbPromo.pop();
- console.log(r.url);
+    db.Promo.find({})
+    .then(function(dbPromo){
+    let r = dbPromo.pop();
+    console.log(r.url);
+    console.log(r._id);
 
-        axios.get("http://www3.lenovo.com"+r.url ).then(function(response) {
-          // Then, we load that into cheerio and save it to $ for a shorthand selector
-          var $ = cheerio.load(response.data);
+            axios.get("http://www3.lenovo.com"+r.url ).then(function(response) {
+              // Then, we load that into cheerio and save it to $ for a shorthand selector
+              var $ = cheerio.load(response.data);
 
-          // Now, we grab every h2 within an article tag, and do the following:
-          $(".product-title").each(function(i, element) {
-            // Save an empty result object
-            var result = {};
+              // Now, we grab every h2 within an article tag, and do the following:
+              $(".product-title").each(function(i, element) {
+                // Save an empty result object
+                var result = {};
 
-            // Add the text and href of every link, and save them as properties of the result object
-            result.title = $(this)
-              .children("a")
-              .text();
-            result.link = $(this)
-              .children("a")
-              .attr("href");
+                // Add the text and href of every link, and save them as properties of the result object
+                result.title = $(this)
+                  .children("a")
+                  .text();
+                result.link = $(this)
+                  .children("a")
+                  .attr("href");
 
-            console.log(result);
+                result.promo = r._id;
 
-            // Create a new Article using the `result` object built from scraping
-            db.Article.create(result)
-              .then(function(dbArticle) {
-                // View the added result in the console
-                console.log(dbArticle);
-                res.redirect('/');
-              })
-              .catch(function(err) {
-                // If an error occurred, send it to the client
-                return res.json(err);
+                console.log(result);
+
+                // Create a new Article using the `result` object built from scraping
+                db.Article.create(result)
+                  .then(function(dbArticle) {
+                    // View the added result in the console
+                    console.log(dbArticle);
+                    res.redirect('/');
+                  })
+                  .catch(function(err) {
+                    // If an error occurred, send it to the client
+                    return res.json(err);
+                  });
+                
+
               });
-            
 
-              // console.log("scrape complete");
-              // window.location.href = "/";
+              // If we were able to successfully scrape and save an Article, send a message to the client
+              //res.send("Scrape Complete");
+              
 
-          });
-
-          // If we were able to successfully scrape and save an Article, send a message to the client
-          //res.send("Scrape Complete");
-          
-
-        });
+            });
 
 
-});
+    });
   
 
 });
@@ -143,6 +134,42 @@ app.get("/articles", function(req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+
+// Route for grabbing a specific Article by id, populate it with it's note
+app.get("/articles/promo/:promo?", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  if (req.params.promo) {
+    // Then display the JSON for ONLY that character.
+    // (Note how we're using the ORM here to run our searches)
+    db.Article.find({
+        "promo" : req.params.promo
+    }).then(function(result) {
+      return res.json(result);
+    });
+  }
+  else {
+    // Otherwise...
+    // Otherwise display the data for all of the characters.
+    // (Note how we're using Sequelize here to run our searches)
+    db.Article.findAll({}).then(function(result) {
+      return res.json(result);
+    });
+  }
+  
+  
+  
+  // db.Article.findOne({ _id: req.params.id })
+  //   // ..and populate all of the notes associated with it
+  //   .populate("note")
+  //   .then(function(dbArticle) {
+  //     // If we were able to successfully find an Article with the given id, send it back to the client
+  //     res.json(dbArticle);
+  //   })
+  //   .catch(function(err) {
+  //     // If an error occurred, send it to the client
+  //     res.json(err);
+  //   });
 });
 
 // Route for grabbing a specific Article by id, populate it with it's note
