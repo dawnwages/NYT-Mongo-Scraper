@@ -9,6 +9,10 @@ $(document).ready(function(){
   $('.modal').modal();
 });
 
+$(document).ready(function(){
+  $('.tooltipped').tooltip();
+});
+
 function scrapeModal() {
   var modal = $(".modal-content")
   modal.append("<h4>Please be patient as we query the universe</h4><p><div class='fa fa-spinner fa-spin' style='font-size:78px'></div></p><p>loading...</p>");

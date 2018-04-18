@@ -31,9 +31,16 @@ nav {
     background-color: #fff;
 }
 
+h4 {
+    line-height: 100% !important;
+}
 
 .right-box {
     border-left: solid;
+}
+
+nav .brand-logo i {
+    float: inherit !important;   
 }
 
 .dropdown {
