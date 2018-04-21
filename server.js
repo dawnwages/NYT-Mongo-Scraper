@@ -35,7 +35,15 @@ app.use(express.static("public"));
 
 // Connect to the Mongo DB
 //creates database when named 
-mongoose.connect("mongodb://localhost/scraperDemo");
+
+const databaseUri = 'mongodb://localhost/scraperDemo'
+
+if(process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGO_DB_URI);
+} else {
+  mongoose.connect(databaseUri);
+}
+
 
 
 app.post("/promo", function(req, res) {
