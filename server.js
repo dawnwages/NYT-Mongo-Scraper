@@ -44,6 +44,16 @@ if(process.env.MONGODB_URI) {
   mongoose.connect(databaseUri);
 }
 
+var aa = mongoose.connection;
+
+aa.on('error', function(err) {
+  console.log('Mongoose Error: ', err);
+});
+
+aa.once('open', function(){
+  console.log('Mongoose connection successful.');
+});
+
 
 
 app.post("/promo", function(req, res) {
