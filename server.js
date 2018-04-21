@@ -18,9 +18,6 @@ var cheerio = require("cheerio");
 var db = require("./models");
 
 
-
-var PORT = 5000;
-
 var url = "";
 
 
@@ -231,7 +228,8 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-// Start the server
-// app.listen(PORT, function() {
-//   console.log("App running on port " + PORT + "!");
-// });
+
+//Start the server
+app.listen(process.env.PORT || 5000, function() {
+  console.log("App running on port " + PORT + "!");
+});
