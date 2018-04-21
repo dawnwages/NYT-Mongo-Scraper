@@ -29,7 +29,7 @@ var url = "";
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Use body-parser for handling form submissions
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
@@ -38,7 +38,7 @@ app.use(express.static("public"));
 
 const databaseUri = 'mongodb://localhost/scraperDemo'
 
-const MONGODB_URI = process.env.MONGODB_UR || "mongodb://localhost/scraperDemo";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraperDemo";
 
 
 mongoose.connect(MONGODB_URI, {
