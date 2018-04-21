@@ -18,6 +18,9 @@ var cheerio = require("cheerio");
 var db = require("./models");
 
 
+
+var PORT = process.env.PORT || 5000;
+
 var url = "";
 
 
@@ -35,21 +38,29 @@ app.use(express.static("public"));
 
 const databaseUri = 'mongodb://localhost/scraperDemo'
 
-if(process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGO_DB_URI);
-} else {
-  mongoose.connect(databaseUri);
-}
+const MONGODB_URI = process.env.MONGODB_UR || "mongodb://localhost/scraperDemo";
 
-var aa = mongoose.connection;
 
-aa.on('error', function(err) {
-  console.log('Mongoose Error: ', err);
-});
+mongoose.connect(MONGODB_URI, {
+  useMongoClient: true
+})
 
-aa.once('open', function(){
-  console.log('Mongoose connection successful.');
-});
+
+// if(process.env.MONGODB_URI) {
+//   mongoose.connect(process.env.MONGO_DB_URI);
+// } else {
+//   mongoose.connect(databaseUri);
+// }
+
+// var aa = mongoose.connection;
+
+// aa.on('error', function(err) {
+//   console.log('Mongoose Error: ', err);
+// });
+
+// aa.once('open', function(){
+//   console.log('Mongoose connection successful.');
+// });
 
 
 
@@ -228,8 +239,7 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-
-//Start the server
-app.listen(process.env.PORT || 5000, function() {
-  console.log("App running on port " + PORT + "!");
-});
+ Start the server
+ app.listen(PORT, function() {
+   console.log("App running on port " + PORT + "!");
+ });
